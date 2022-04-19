@@ -16,7 +16,7 @@ function ListRegisters () {
     }, [])
 
     return (
-        <div>hey</div>
+        <div>hey2</div>
     )
 }
   export default ListRegisters
