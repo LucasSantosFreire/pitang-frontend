@@ -3,7 +3,7 @@ import DateView from 'react-datepicker'
 import { Field } from 'formik'
 import 'react-datepicker/dist/react-datepicker.css'
 
-function DatePicker (props) {
+const DatePicker = (props) => {
   const { label, name, ...rest} = props
   return (
     <div className='form-control'>
