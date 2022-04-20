@@ -1,0 +1,60 @@
+import React from 'react'
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tr,
+    Th,
+    Td,
+    TableContainer,
+    IconButton
+  } from '@chakra-ui/react'
+
+  import { CheckIcon, DeleteIcon, TimeIcon, CheckCircleIcon } from '@chakra-ui/icons'
+
+
+const ChakraTable = (props) => {
+
+    const { data, columns, ...rest } = props
+
+  return (
+    <TableContainer>
+  <Table {...rest}>
+    <Thead>
+      <Tr>
+        {columns.map((item, index) => <TableHeadItem item={item} />  )}
+      </Tr>
+    </Thead>
+    <Tbody>
+        {data.map((item, index) => (
+        <>
+        <TableRow item={item} columns={columns} index={index}/>
+        </>
+        ))}
+    </Tbody>
+  </Table>
+</TableContainer>
+  )
+}
+
+const TableHeadItem = ({ item }) => <Th>{item.heading}</Th>
+
+const TableRow = ({ item, columns, index }) => (
+    <Tr>
+      {columns.map((columnItem, index) => {
+        if (item[`${columnItem.value}`] === true )
+            return  <Td><CheckCircleIcon color='green.500' boxSize={7} /></Td>
+        else if (item[`${columnItem.value}`] === false ){
+            return <Td><TimeIcon color='yellow.700' boxSize={7} /></Td>
+        }
+        return <Td>{item[`${columnItem.value}`]}</Td>
+      })}
+        <Td><IconButton colorScheme='teal' aria-label='Confirmar atendimento'icon={<CheckIcon />} onClickCapture={() => testeUpdate(item)}/></Td>
+        <Td><IconButton colorScheme='red' aria-label='Deletar registro'icon={<DeleteIcon />}/></Td>
+    </Tr>
+  )
+
+  function testeUpdate(index){
+     console.log(index) 
+  }
+export default ChakraTable
