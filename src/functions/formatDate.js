@@ -6,7 +6,6 @@ moment.updateLocale('pt', {
     ]
 });
 function formatDate(data) {
-    console.log(data)
     const modifiedData = data.map((item) => {
         const {birthdate, appointmentDate} = item
         item.birthdate = moment(birthdate).local().utc(0, true).format("DD/MM/YYYY")
