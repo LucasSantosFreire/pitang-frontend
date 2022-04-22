@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {
     Table,
     Thead,
@@ -7,7 +8,9 @@ import {
     Th,
     Td,
     TableContainer,
-    IconButton
+    IconButton,
+    Grid,
+    GridItem
   } from '@chakra-ui/react'
 
   import { CheckIcon, DeleteIcon, TimeIcon, CheckCircleIcon } from '@chakra-ui/icons'
@@ -16,22 +19,26 @@ import {
 const ChakraTable = (props) => {
     const { data, columns,updateRegister, deleteRegister, ...rest } = props
   return (
+    <Grid templateColumns='repeat(20, 1fr)'>
+    <GridItem colStart={2} colEnd={20}  >
     <TableContainer>
-  <Table {...rest}>
-    <Thead>
-      <Tr>
-        {columns.map((item, index) => <TableHeadItem item={item} />  )}
-      </Tr>
-    </Thead>
-    <Tbody>
-        {data.map((item, index) => (
-        <>
-        <TableRow item={item} columns={columns} index={index} updateRegister={updateRegister} deleteRegister={deleteRegister}/>
-        </>
-        ))}
-    </Tbody>
-  </Table>
-</TableContainer>
+      <Table {...rest}>
+        <Thead>
+          <Tr>
+            {columns.map((item, index) => <TableHeadItem item={item} />)}
+          </Tr>
+        </Thead>
+        <Tbody>
+          {data.map((item, index) => (
+            <>
+              <TableRow item={item} columns={columns} index={index} updateRegister={updateRegister} deleteRegister={deleteRegister} />
+            </>
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
+    </GridItem>
+    </Grid>
   )
 }
 
