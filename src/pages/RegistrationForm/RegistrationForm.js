@@ -30,7 +30,11 @@ function RegistrationForm () {
     const newDate = moment(data.appointmentDate, moment.ISO_8601).local().utc(-3, true).format()
     data.appointmentDate = newDate
     window.sessionStorage.clear();
+    try{
     await axios.post("/create_appointment", data);
+    }catch(error){
+      console.log(error)
+    }
   }
 
   return (
@@ -74,7 +78,7 @@ function RegistrationForm () {
                 minDate={new Date(new Date().getTime() + 86400000)}
               />
               <Container mt={'2%'} centerContent mb={'5%'}>
-              <Button type='submit' colorScheme='blackAlpha' variant='solid' disabled={!formik.isValid}>Submit</Button>
+                <Button type='submit' colorScheme='blackAlpha' variant='solid' disabled={!formik.isValid}>Submit</Button>
               </Container>
             </Form>
           )
