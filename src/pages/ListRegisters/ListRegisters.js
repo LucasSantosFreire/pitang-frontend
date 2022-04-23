@@ -18,7 +18,7 @@ import {
     HStack,
     Heading 
   } from '@chakra-ui/react'
-  import { Search2Icon } from '@chakra-ui/icons'
+  import { Search2Icon, ArrowBackIcon } from '@chakra-ui/icons'
 
 function ListRegisters () {
 
@@ -76,7 +76,10 @@ function ListRegisters () {
 
     return (    
         <div>
-            <HStack spacing={'20px'} marginLeft={"5%"} >
+            <Button ml={'5%'} mb={'3%'} leftIcon={<ArrowBackIcon />} colorScheme='teal' variant='solid' onClick={() => navigate("/")}>
+                Voltar para home.
+            </Button>
+            <HStack spacing={'20px'} ml={"5%"} mb={'2%'} >
                 <Input isRequired placeholder='Digite um nome para pesquisar' size='md' width='25%' value={value} onChange={(e) => {setValue(e.target.value)}}/>
                 <IconButton colorScheme='green' aria-label='Pesquisar'icon={<Search2Icon />} onClickCapture={() => handleSearch()}/>
             </HStack>
