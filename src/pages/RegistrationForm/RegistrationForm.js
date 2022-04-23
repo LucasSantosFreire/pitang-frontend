@@ -25,7 +25,7 @@ function RegistrationForm () {
     const data = JSON.parse(JSON.stringify(values))
     const newDate = moment(data.appointmentDate, moment.ISO_8601).local().utc(-3, true).format()
     data.appointmentDate = newDate
-    console.log(data)
+    window.sessionStorage.clear();
     await axios.post("/create_appointment", data);
   }
 
