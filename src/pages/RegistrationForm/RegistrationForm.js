@@ -26,11 +26,12 @@ function RegistrationForm () {
             appointmentDate: Yup.date().required()
   })
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, {resetForm}) => {
     const data = JSON.parse(JSON.stringify(values))
     const newDate = moment(data.appointmentDate, moment.ISO_8601).local().utc(-3, true).format()
     data.appointmentDate = newDate
     window.sessionStorage.clear();
+    resetForm()
     try{
     await axios.post("/create_appointment", data);
     toast({
@@ -41,6 +42,7 @@ function RegistrationForm () {
       duration: 9000,
       isClosable: true,
     })
+
     }catch(error){
       console.log(error)
       toast({
