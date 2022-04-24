@@ -16,7 +16,8 @@ import {
     Input,
     IconButton,
     HStack,
-    Heading 
+    Heading ,
+    useToast
   } from '@chakra-ui/react'
   import { Search2Icon, ArrowBackIcon } from '@chakra-ui/icons'
 
@@ -26,24 +27,49 @@ function ListRegisters () {
     const [value, setValue ] = React.useState("");
     const [filteredData, setFilteredData] = React.useState([])
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const toast = useToast()
     const navigate = useNavigate()
 
     async function updateRegister(item, index){
+        try{
         await axios.put(`/update_status/${item.id}`)
         const modifiedData = data
         modifiedData[index].status = true
         window.sessionStorage.setItem('data', JSON.stringify(modifiedData))
         setData(modifiedData)
         navigate(0)
+        }catch(error){
+        console.log(error)
+        toast({
+            title: 'Ocorreu uma falha ao atualizar o status!!!',
+            description: `${error.response.data.message}`,
+            status: 'error',
+            position: 'bottom-right',
+            duration: 9000,
+            isClosable: true,
+          })    
+        }
      }
 
      async function deleteRegister(item, index){
+        try{
         await axios.delete(`/delete_appointment/${item.id}`)
         const modifiedData = data
         modifiedData.splice(index, 1)
         window.sessionStorage.setItem('data', JSON.stringify(modifiedData))
         setData(modifiedData)
         navigate(0)
+        }catch(error){
+        console.log(error)
+        toast({
+            title: 'Ocorreu uma falha ao deletar este agendamento!!!',
+            description: `${error.response.data.message}`,
+            status: 'error',
+            position: 'bottom-right',
+            duration: 9000,
+            isClosable: true,
+          })
+        }
      }
 
      function handleSearch(){

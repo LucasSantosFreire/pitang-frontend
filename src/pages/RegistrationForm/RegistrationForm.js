@@ -5,13 +5,14 @@ import ptBR from 'date-fns/locale/pt-BR';
 import axios from '../../services/api'
 import DatePicker from '../../components/datepicker/DatePicker'
 import ChakraInput from '../../components/Input/Input'
-import { Button, Container } from '@chakra-ui/react'
+import { Button, Container, useToast } from '@chakra-ui/react'
 import moment from 'moment';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 
 function RegistrationForm () {
   const navigate = useNavigate()
+  const toast = useToast()
 
   const initialValues = {
     name : '',
@@ -32,8 +33,24 @@ function RegistrationForm () {
     window.sessionStorage.clear();
     try{
     await axios.post("/create_appointment", data);
+    toast({
+      title: 'Agendamento feito com sucesso!!',
+      description: "Pode verificar o seu agendamento na lista de agendamentos.",
+      status: 'success',
+      position: 'bottom-right',
+      duration: 9000,
+      isClosable: true,
+    })
     }catch(error){
       console.log(error)
+      toast({
+        title: 'Ocorreu uma falha no seu agendamento!!',
+        description: `${error.response.data.message}`,
+        status: 'error',
+        position: 'bottom-right',
+        duration: 9000,
+        isClosable: true,
+      })
     }
   }
 
